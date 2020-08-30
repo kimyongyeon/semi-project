@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout/defaultLayout">
+<head>
+    <title>semi project index.html</title>
+</head>
+
+<body>
+
+<th:block layout:fragment="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-4 col-md-4 col-lg-4">
+                <h2>명함관리</h2>
+                <div class="card" style="width:400px">
+                    <img class="card-img-top" src="https://via.placeholder.com/50" alt="Card image">
+                    <div class="card-body">
+                        <h4 class="card-title">존 테리</h4>
+                        <p class="card-text">명함관리 관리자</p>
+                        <a href="#" class="btn btn-primary">입장</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-4 col-lg-4">
+                <h2>방명록관리</h2>
+                <div class="card" style="width:400px">
+                    <img class="card-img-top" src="https://via.placeholder.com/50" alt="Card image">
+                    <div class="card-body">
+                        <h4 class="card-title">슈바</h4>
+                        <p class="card-text">방명록관리 관리자</p>
+                        <a href="#" class="btn btn-primary">입장</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-4 col-lg-4">
+                <h2>예약관리</h2>
+                <div class="card" style="width:400px">
+                    <img class="card-img-top" src="https://via.placeholder.com/50" alt="Card image">
+                    <div class="card-body">
+                        <h4 class="card-title">메시</h4>
+                        <p class="card-text">예약관리 관리자</p>
+                        <a href="#" class="btn btn-primary">입장</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="pageCustomScript">
+    <script th:src="@{/js/index.js}"></script>
+</th:block>
+<!--<th:block layout:fragment="pageCustomCss">-->
+<!--    <script th:src="@{/assets/vendor/jquery/jquery.css}"></script>-->
+<!--</th:block>-->
+</body>
+</html>

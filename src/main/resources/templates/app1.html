@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout/defaultLayout">
+<head>
+    <title>semi project index.html</title>
+</head>
+
+<body>
+
+<th:block layout:fragment="content">
+
+    <h1>명함관리</h1>
+    <hr>
+    <h2>입력화면</h2>
+    <form action="#" id="formInput">
+        <div class="form-group" style="display: none;" id="formEdit">
+            <label for="txtId">키</label>
+            <input type="text" class="form-control" placeholder="Enter id" id="txtId" disabled>
+        </div>
+        <div class="form-group">
+            <label for="txtName">이름</label>
+            <input type="text" class="form-control" placeholder="Enter name" id="txtName">
+        </div>
+        <div class="form-group">
+            <label for="txtPhone">전화번호</label>
+            <input type="text" class="form-control" placeholder="Enter phone" id="txtPhone">
+        </div>
+        <div class="form-group">
+            <label for="txtCorp">회사이름</label>
+            <input type="text" class="form-control" placeholder="Enter corp" id="txtCorp">
+        </div>
+        <button type="button" id="btnSave" class="btn btn-primary">저장</button>
+        <button type="button" id="btnEdit" class="btn btn-primary">수정</button>
+        <button type="button" id="btnDel" class="btn btn-primary">삭제</button>
+    </form>
+    <hr>
+    <h2>조회화면</h2>
+    <form action="#" id="formSearch">
+        <div class="form-group">
+            <label for="txtSearch">검색</label>
+            <input type="text" class="form-control" placeholder="Enter searchName" id="txtSearch">
+        </div>
+        <button type="button" id="btnSearch" class="btn btn-primary">조회</button>
+    </form>
+    <br>
+    <ul class="list-group" id="searchList">
+        <li class="list-group-item">First item</li>
+        <li class="list-group-item">Second item</li>
+        <li class="list-group-item">Third item</li>
+    </ul>
+
+</th:block>
+
+<th:block layout:fragment="pageCustomScript">
+    <script th:src="@{/js/app1.js}"></script>
+</th:block>
+<!--<th:block layout:fragment="pageCustomCss">-->
+<!--    <script th:src="@{/assets/vendor/jquery/jquery.css}"></script>-->
+<!--</th:block>-->
+</body>
+</html>
