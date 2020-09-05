@@ -4,6 +4,41 @@
       layout:decorator="layout/defaultLayout">
 <head>
     <title>semi project index.html</title>
+    <style>
+        .form__default__component {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .form__default__component .form-group {
+            flex-grow: 1;
+            padding: 5px;
+        }
+
+        .btn__bottom__component {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .btn__bottom__component button {
+            margin-right: 5px;
+        }
+
+        #formSearch {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: flex-end;
+        }
+        #formSearch .form-group:nth-child(1) {
+            margin-right: 5px;
+            flex-grow: 1;
+        }
+    </style>
 </head>
 
 <body>
@@ -14,25 +49,30 @@
     <hr>
     <h2>입력화면</h2>
     <form action="#" id="formInput">
-        <div class="form-group" style="display: none;" id="formEdit">
+        <div class="form-group form__hidden__component" style="display: none;" id="formEdit">
             <label for="txtId">키</label>
             <input type="text" class="form-control" placeholder="Enter id" id="txtId" disabled>
         </div>
-        <div class="form-group">
-            <label for="txtName">이름</label>
-            <input type="text" class="form-control" placeholder="Enter name" id="txtName">
+        <div class="form__default__component " >
+            <div class="form-group">
+                <label for="txtName">이름</label>
+                <input disabled type="text" class="form-control" placeholder="Enter name" id="txtName">
+            </div>
+            <div class="form-group">
+                <label for="txtPhone">전화번호</label>
+                <input disabled type="text" class="form-control" placeholder="Enter phone" id="txtPhone">
+            </div>
+            <div class="form-group">
+                <label for="txtCorp">회사이름</label>
+                <input disabled type="text" class="form-control" placeholder="Enter corp" id="txtCorp">
+            </div>
         </div>
-        <div class="form-group">
-            <label for="txtPhone">전화번호</label>
-            <input type="text" class="form-control" placeholder="Enter phone" id="txtPhone">
+        <div class="btn__bottom__component">
+            <button type="button" id="btnSave" class="btn btn-primary">저장</button>
+            <button type="button" id="btnEdit" class="btn btn-primary">수정</button>
+            <button type="button" id="btnDel" class="btn btn-primary">삭제</button>
+            <button type="button" id="btnCacheInit" class="btn btn-primary">캐시초기화</button>
         </div>
-        <div class="form-group">
-            <label for="txtCorp">회사이름</label>
-            <input type="text" class="form-control" placeholder="Enter corp" id="txtCorp">
-        </div>
-        <button type="button" id="btnSave" class="btn btn-primary">저장</button>
-        <button type="button" id="btnEdit" class="btn btn-primary">수정</button>
-        <button type="button" id="btnDel" class="btn btn-primary">삭제</button>
     </form>
     <hr>
     <h2>조회화면</h2>
@@ -41,9 +81,10 @@
             <label for="txtSearch">검색</label>
             <input type="text" class="form-control" placeholder="Enter searchName" id="txtSearch">
         </div>
-        <button type="button" id="btnSearch" class="btn btn-primary">조회</button>
+        <div class="form-group">
+            <button type="button" id="btnSearch" class="btn btn-primary">조회</button>
+        </div>
     </form>
-    <br>
     <ul class="list-group" id="searchList">
         <li class="list-group-item">First item</li>
         <li class="list-group-item">Second item</li>
@@ -53,7 +94,7 @@
 </th:block>
 
 <th:block layout:fragment="pageCustomScript">
-    <script th:src="@{/js/app1.js}"></script>
+    <script defer th:src="@{/web1/js/app1.js}"></script>
 </th:block>
 <!--<th:block layout:fragment="pageCustomCss">-->
 <!--    <script th:src="@{/assets/vendor/jquery/jquery.css}"></script>-->

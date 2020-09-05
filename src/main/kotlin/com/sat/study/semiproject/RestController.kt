@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RestController
+import java.util.*
 
 @RestController
 class RestController {
@@ -20,12 +21,26 @@ class RestController {
     @PostMapping("/biz/save")
     fun bizSave(bizForm: BizForm ): BizForm {
         println(bizForm)
-        var bizEntity: BizEntity = BizEntity(null, "", "", "")
+        var bizEntity: BizEntity = BizEntity(null, "", "", "", Date(), "", "")
         bizEntity.name = bizForm.name
         bizEntity.phone = bizForm.phone
         bizEntity.corp = bizForm.corp
         bizRepo.save(bizEntity)
         return bizForm
+    }
+
+    @PostMapping("/biz/delete")
+    fun bizDel(id: Long): Long {
+        var bizEntity: BizEntity = bizRepo.findById(id).get()
+        bizRepo.delete(bizEntity)
+        return id
+    }
+
+    @PostMapping("/biz/deleteName")
+    fun bizDel(name: String): String {
+        var bizEntity: BizEntity = bizRepo.findByName(name)
+        bizRepo.delete(bizEntity)
+        return name
     }
 
     @GetMapping("/biz/search")

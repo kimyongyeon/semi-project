@@ -4,24 +4,26 @@
         <title layout:title-pattern="$LAYOUT_TITLE : $CONTENT_TITLE">Semi project</title>
         <!-- 공통 css, js, meta tag -->
         <th:block th:replace="/fragments/commonHead"></th:block>
+
     </head>
     <body>
-
-        <div class="jumbotron" style="margin-bottom: 0px;">
-            <h1>Semi Project</h1>
-            <p>명함관리, 방명록관리, 예약관리 만들기</p>
-        </div>
+        <a href="/">
+            <div class="jumbotron" style="margin-bottom: 0px;">
+                <h1>Semi Project</h1>
+                <p>명함관리, 방명록관리, 예약관리 만들기</p>
+            </div>
+        </a>
 
         <nav class="navbar navbar-expand-sm bg-light">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="/app1">명함관리 앱</a>
+                    <a class="nav-link" href="/page/app1">명함관리 앱</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/app2">방명록관리 앱</a>
+                    <a class="nav-link" href="/page/app2">방명록관리 앱</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/app3">예약시스템 앱</a>
+                    <a class="nav-link" href="/page/app3">예약시스템 앱</a>
                 </li>
             </ul>
         </nav>
@@ -33,10 +35,10 @@
         </div>
         <!-- 공통 footer -->
         <div style="margin-top: 30px;">
-        <footer th:replace="/fragments/commonFooter :: commonFooter"></footer>
+            <footer th:replace="/fragments/commonFooter :: commonFooter"></footer>
         </div>
         <!-- 공통 javascript -->
-        <!--<th:block th:replace="/fragments/commonScript"></th:block>-->
+        <th:block th:replace="/fragments/commonScript"></th:block>
         <!-- page content javascript -->
         <th:block layout:fragment="pageCustomScript"></th:block>
     </body>
