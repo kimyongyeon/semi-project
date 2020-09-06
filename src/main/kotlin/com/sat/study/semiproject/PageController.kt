@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 @Controller
 @RequestMapping("/page")
 class PageController {
-    @RequestMapping("/{page}") // localhost/page/app1
+    @GetMapping("/{page}") // localhost/page/app1
     fun index(@PathVariable page: String): String {
         return page
     }

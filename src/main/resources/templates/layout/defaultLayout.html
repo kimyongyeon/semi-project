@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title layout:title-pattern="$LAYOUT_TITLE : $CONTENT_TITLE">Semi project</title>
+        <title>Semi project</title>
         <!-- 공통 css, js, meta tag -->
-        <th:block th:replace="/fragments/commonHead"></th:block>
+        <th:block th:replace="fragments/commonHead :: commonHead"></th:block>
 
     </head>
     <body>
@@ -36,10 +36,10 @@
         </div>
         <!-- 공통 footer -->
         <div style="margin-top: 30px;">
-            <footer th:replace="/fragments/commonFooter :: commonFooter"></footer>
+            <footer th:replace="fragments/commonFooter :: commonFooter"></footer>
         </div>
         <!-- 공통 javascript -->
-        <th:block th:replace="/fragments/commonScript"></th:block>
+        <th:block th:replace="fragments/commonScript :: commonScript"></th:block>
         <!-- page content javascript -->
         <th:block layout:fragment="pageCustomScript"></th:block>
     </body>
