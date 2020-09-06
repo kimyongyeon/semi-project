@@ -87,7 +87,7 @@ $("#btnSave").on("click", function (e) {
     }
 
     // ajax called
-    $.post("/biz/save", formData,
+    $.post(commonUtil.getContextPath() + "/biz/save", formData,
         function (data, status) {
             console.log(typeof status, status);
             fnSearch(listDraw);
@@ -113,7 +113,7 @@ function formItemDisabled(flag) {
 function fnDetail(name, res) {
     $.ajax({
         type: "GET",
-        url: "/biz/detail",
+        url: commonUtil.getContextPath() + "/biz/detail",
         dataType: "html",
         data: "name=" + name,
         success: function (data) {
@@ -129,7 +129,7 @@ function fnDetail(name, res) {
 function fnDel(name) {
     $.ajax({
         type: "POST",
-        url: "/biz/deleteName",
+        url: commonUtil.getContextPath() + "/biz/deleteName",
         dataType: "json",
         data: "name=" + name,
         success: function (data) {
@@ -145,14 +145,14 @@ function fnDel(name) {
 
 function fnSearch(res) {
     commonUtil.TTL = 3000;
-    if (commonUtil.getCache("/biz/search") === "") {
-        $.get("/biz/search", function(data, status){
-            commonUtil.getCache("/biz/search", data);
+    if (commonUtil.getCache(commonUtil.getContextPath() + "/biz/search") === "") {
+        $.get(commonUtil.getContextPath() + "/biz/search", function(data, status){
+            commonUtil.getCache(commonUtil.getContextPath() + "/biz/search", data);
             console.log("[$.get::fnSearch]: " + JSON.stringify(data) + "\nStatus: " + status);
             res(data);
         });
     } else {
-        res(commonUtil.getCache("/biz/search"));
+        res(commonUtil.getCache(commonUtil.getContextPath() + "/biz/search"));
 
     }
 }

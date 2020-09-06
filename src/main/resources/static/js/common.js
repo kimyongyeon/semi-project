@@ -13,6 +13,11 @@ class Common {
         return JSON.parse(localStorage.getItem(key));
     }
 
+    getContextPath() {
+        var hostIndex = location.href.indexOf( location.host ) + location.host.length;
+        return location.href.substring( hostIndex, location.href.indexOf('/', hostIndex + 1) );
+    };
+
     /**
      * key: url, value: jsonList
      * @param key
