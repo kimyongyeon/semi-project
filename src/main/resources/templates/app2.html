@@ -4,16 +4,43 @@
       layout:decorate="~{layout/defaultLayout}">
 <head>
     <title>semi project index.html</title>
+    <style>
+        #formData ul li {
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
 </head>
 
 <body>
 
 <th:block layout:fragment="content">
     <h1>방명록관리</h1>
+    <hr>
+    <div style="display: flex; flex-direction: column;" >
+        <h1>목록</h1>
+        <button id="btnDel" type="button" class="btn btn-danger">전체삭제</button>
+        <div id="formList">
+            <ul class="list-group">
+            </ul>
+        </div>
+
+    </div>
+    <br>
+    <div id="formData" style="position: fixed; bottom: 0px; right: 0px; width:600px; background: beige; padding: 10px;">
+        <h1>입력</h1>
+        <ul>
+            <li>
+                이름: <input class="form-control" id="txtName" type="text">
+                내용: <textarea class="form-control" name="txtMemo" id="txtMemo" cols="30" rows="10"></textarea>
+                <button id="btnSave" type="button" class="btn btn-primary">확인</button>
+            </li>
+        </ul>
+    </div>
 </th:block>
 
 <th:block layout:fragment="pageCustomScript">
-    <script th:src="@{/js/index.js}"></script>
+    <script th:src="@{/js/app2.js}"></script>
 </th:block>
 <!--<th:block layout:fragment="pageCustomCss">-->
 <!--    <script th:src="@{/assets/vendor/jquery/jquery.css}"></script>-->

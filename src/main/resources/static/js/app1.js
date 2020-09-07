@@ -130,7 +130,7 @@ $("#btnSave").on("click", function (e) {
     $.ajax({
         type: "POST",
         url: commonUtil.getContextPath() + "/biz/save",
-        dataType: "json",
+        // dataType: "json",
         data: formData,
         success: function (data) {
             commonUtil.fnAlertSuccess("저장이 정상 처리 되었습니다.");
@@ -173,7 +173,7 @@ function fnEdit(form, callback) {
     $.ajax({
         type: "POST",
         url: commonUtil.getContextPath() + "/biz/edit",
-        dataType: "json",
+        // dataType: "json",
         data: form,
         success: function (data) {
             commonUtil.fnAlertSuccess("수정이 정상 처리 되었습니다.");
@@ -190,10 +190,10 @@ function fnDetail(name, res) {
     $.ajax({
         type: "GET",
         url: commonUtil.getContextPath() + "/biz/detail",
-        dataType: "html", // 데이터 받을때는 html으로 받아야 한다. json으로 하면 못받음.
+        // dataType: "html", // 데이터 받을때는 html으로 받아야 한다. json으로 하면 못받음.
         data: "name=" + name,
         success: function (data) {
-            res(JSON.parse(data));
+            res(data);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             commonUtil.fnAlertDanger(xhr.status);
@@ -207,7 +207,7 @@ function fnDel(name) {
     $.ajax({
         type: "POST",
         url: commonUtil.getContextPath() + "/biz/deleteName",
-        dataType: "json",
+        // dataType: "json",
         data: "name=" + name,
         success: function (data) {
             commonUtil.fnAlertSuccess("삭제가 정상 처리 되었습니다.");

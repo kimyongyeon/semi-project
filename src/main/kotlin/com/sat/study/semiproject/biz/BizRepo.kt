@@ -1,4 +1,4 @@
-package com.sat.study.semiproject
+package com.sat.study.semiproject.biz
 
 import org.springframework.data.jpa.repository.JpaRepository
 

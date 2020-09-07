@@ -4,6 +4,10 @@ class Common {
         this.cacheList = {};
         this.TTL = 1000 * 60;
         this.fnBatchSave();
+
+        $("#btnTop").on("click", function(e) {
+            $('body,html').animate({scrollTop: 0}, 800);
+        });
     }
 
     fnBatchSave() {

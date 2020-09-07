@@ -1,4 +1,4 @@
-package com.sat.study.semiproject
+package com.sat.study.semiproject.biz
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.GetMapping
@@ -19,8 +19,10 @@ class RestController {
             var corp: String
     )
 
+
+
     @PostMapping("/biz/save")
-    fun bizSave(bizForm: BizForm ): BizForm {
+    fun bizSave(bizForm: BizForm): BizForm {
         println(bizForm)
         var bizEntity = BizEntity(null, "", "", "", Date(), "", "")
         bizEntity.name = bizForm.name
@@ -31,7 +33,7 @@ class RestController {
     }
 
     @PostMapping("/biz/edit")
-    fun bizEdit(bizForm: BizForm ): BizForm {
+    fun bizEdit(bizForm: BizForm): BizForm {
         println(bizForm)
         var bizEntity = BizEntity(0L, "", "", "", Date(), "", "")
         bizEntity.id = bizForm.id
@@ -71,5 +73,7 @@ class RestController {
 //        }
         return bizRepo.findFirstByName(name)
     }
+
+
 
 }

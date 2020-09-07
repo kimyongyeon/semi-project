@@ -1,4 +1,4 @@
-package com.sat.study.semiproject
+package com.sat.study.semiproject.biz
 
 import java.util.*
 import javax.persistence.*
