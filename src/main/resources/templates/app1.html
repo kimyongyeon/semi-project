@@ -44,10 +44,13 @@
 <body>
 
 <th:block layout:fragment="content">
-
+    <div id="alert__show" style="overflow: auto; height: 100vh; position: fixed; top: 0px; right: 0px;"></div>
     <h1>명함관리</h1>
     <hr>
     <h2>입력화면</h2>
+
+
+
     <form action="#" id="formInput">
         <div class="form-group form__hidden__component" style="display: none;" id="formEdit">
             <label for="txtId">키</label>
@@ -91,7 +94,11 @@
         <li class="list-group-item">Third item</li>
     </ul>
 
+
+
 </th:block>
+
+
 
 <th:block layout:fragment="pageCustomScript">
     <script defer th:src="@{/js/app1.js}"></script>

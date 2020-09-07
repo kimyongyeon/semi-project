@@ -13,6 +13,7 @@ class RestController {
     lateinit var bizRepo: BizRepo
 
     data class BizForm (
+            var id: Long,
             var name: String,
             var phone: String,
             var corp: String
@@ -21,7 +22,19 @@ class RestController {
     @PostMapping("/biz/save")
     fun bizSave(bizForm: BizForm ): BizForm {
         println(bizForm)
-        var bizEntity: BizEntity = BizEntity(null, "", "", "", Date(), "", "")
+        var bizEntity = BizEntity(null, "", "", "", Date(), "", "")
+        bizEntity.name = bizForm.name
+        bizEntity.phone = bizForm.phone
+        bizEntity.corp = bizForm.corp
+        bizRepo.save(bizEntity)
+        return bizForm
+    }
+
+    @PostMapping("/biz/edit")
+    fun bizEdit(bizForm: BizForm ): BizForm {
+        println(bizForm)
+        var bizEntity = BizEntity(0L, "", "", "", Date(), "", "")
+        bizEntity.id = bizForm.id
         bizEntity.name = bizForm.name
         bizEntity.phone = bizForm.phone
         bizEntity.corp = bizForm.corp
@@ -38,7 +51,7 @@ class RestController {
 
     @PostMapping("/biz/deleteName")
     fun bizDel(name: String): String {
-        var bizEntity: BizEntity = bizRepo.findByName(name)
+        var bizEntity: BizEntity = bizRepo.findFirstByName(name)
         bizRepo.delete(bizEntity)
         return name
     }
@@ -50,7 +63,13 @@ class RestController {
 
     @GetMapping("/biz/detail")
     fun bizDetail(name: String): BizEntity {
-        return bizRepo.findByName(name)
+//        val biz = bizRepo.findByName(name)
+//        print(biz)
+//
+//        if (biz.size > 1) {
+//            return BizEntity(0L, "데이터가 2개 이상 입니다.", "", "", Date(), "error", biz.toString())
+//        }
+        return bizRepo.findFirstByName(name)
     }
 
 }

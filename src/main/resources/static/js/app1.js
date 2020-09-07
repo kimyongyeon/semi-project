@@ -1,50 +1,82 @@
-let btnEditState = true;
+window.onload = () => {
+    $("#btnSearch").click();
+}
+
 $("#btnCacheInit").on("click", function(e) {
     commonUtil.initCache();
+    commonUtil.fnAlertSuccess("캐시 초기화가 완료 되었습니다.");
 })
+
+function btnDisabled(str, flag) {
+    $("#btnSave").attr("disabled", flag);
+    $("#btnDel").attr("disabled", flag);
+    $("#btnCacheInit").attr("disabled", flag);
+    $("#btnEdit").attr("disabled", flag);
+
+    $("#" + str).attr("disabled", false);
+}
+
 $("#btnEdit").on("click", function (e) {
+
     e.preventDefault();
+    btnDisabled("btnEdit", true);
 
     if ($(this).text() === "수정") {
+
         $(this).text("완료");
         $("#formEdit").attr("style","display:inline");
         formItemDisabled(false);
-        return;
-    }
 
-    let id = $("#txtId").val();
-    if (!id) {
-        alert("id가 존재하지 않습니다.");
-        formItemDisabled(true);
-        $("#formEdit").attr("style","display:none");
-        $(this).text("수정");
-        return;
-    }
+        let name = prompt("수정할 name을 입력 하시요") || "";
 
-    if (btnEditState) {
-        let name = $("#txtName").val();
+        if (name === "") {
+            btnDisabled("false", false);
+            fnEditFormInit();
+            return;
+        }
+
         fnDetail(name, (data) => {
-            console.log(data);
-            $(this).text("수정");
+            if (data.code === -1) {
+                btnDisabled("false", false);
+                fnEditFormInit();
+                return;
+            }
             $("#formEdit").attr("style","display:inline");
             $("#txtId").val(data.id);
             $("#txtName").val(data.name).focus();
             $("#txtPhone").val(data.phone);
             $("#txtCorp").val(data.corp);
         })
-        btnEditState = false;
-    } else {
-        fnEditFormInit();
-    }
+        return;
+    } else if ($(this).text() === "완료") {
 
-    $(this).text("수정");
+        let id = $("#txtId").val();
+        if (!id) {
+            commonUtil.fnAlertDanger("id가 존재하지 않습니다.");
+            fnEditFormInit();
+            return;
+        }
+
+        let name = $("#txtName").val();
+        let phone = $("#txtPhone").val();
+        let corp = $("#txtCorp").val();
+        let form = {
+            id: id, name: name, phone: phone, corp: corp
+        };
+
+        fnEdit(form, (data) => {
+           $("#btnSearch").click();
+           btnDisabled("false", false);
+           fnEditFormInit();
+        });
+    }
 
 });
 
 $("#btnDel").on("click", function(e) {
    let q = confirm("삭제 하시겠습니까?");
    if (q) {
-       let name = $("#txtName").val();
+       let name = prompt("삭제할 이름을 입력 하시오.");
        fnDel(name);
    }
 });
@@ -64,7 +96,7 @@ $("#btnSave").on("click", function (e) {
     let corp = $("#txtCorp").val();
 
     if (name === "" || phone === "" || corp === "" ) {
-        alert("반드시 값을 입력하시오.");
+        commonUtil.fnAlertDanger("데이터 입력을 하세요.");
         if (!name) {
             $("#txtName").focus();
             return;
@@ -83,17 +115,43 @@ $("#btnSave").on("click", function (e) {
     console.log(`[debug][formInput] ${name},${phone},${corp}`);
 
     let formData = {
-        name: name, phone: phone, corp: corp
+        name: name, phone: phone, corp: corp, id: 0
     }
 
+    let localDataFormData = {
+        ...formData,
+        state: 'WAIT'
+    }
+    let bizCard = commonUtil.localRead("bizCard") || [];
+    bizCard.push(localDataFormData);
+    commonUtil.localSave("bizCard", bizCard);
+
     // ajax called
-    $.post(commonUtil.getContextPath() + "/biz/save", formData,
-        function (data, status) {
-            console.log(typeof status, status);
+    $.ajax({
+        type: "POST",
+        url: commonUtil.getContextPath() + "/biz/save",
+        dataType: "json",
+        data: formData,
+        success: function (data) {
+            commonUtil.fnAlertSuccess("저장이 정상 처리 되었습니다.");
             fnSearch(listDraw);
-            console.log("formInput save end");
+            fnEditFormInit();
             formItemDisabled(true);
-        });
+
+            let bizCard = commonUtil.localRead("bizCard") || [];
+            bizCard = bizCard.map(b => {
+                b.state = "SUCCESS";
+                return b;
+            });
+            commonUtil.localSave("bizCard", bizCard);
+
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            commonUtil.fnAlertDanger(xhr.status);
+            commonUtil.fnBatchSave();
+            fnEditFormInit();
+        }
+    });
 
     $(this).text("저장");
 
@@ -102,6 +160,7 @@ $("#btnSave").on("click", function (e) {
 $("#btnSearch").on("click", function (e) {
     e.preventDefault();
     fnSearch(listDraw);
+    commonUtil.fnAlertSuccess("조회가 완료 되었습니다.");
 });
 
 function formItemDisabled(flag) {
@@ -110,18 +169,36 @@ function formItemDisabled(flag) {
     $("#txtCorp").attr('disabled', flag);
 }
 
+function fnEdit(form, callback) {
+    $.ajax({
+        type: "POST",
+        url: commonUtil.getContextPath() + "/biz/edit",
+        dataType: "json",
+        data: form,
+        success: function (data) {
+            commonUtil.fnAlertSuccess("수정이 정상 처리 되었습니다.");
+            callback(data);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            commonUtil.fnAlertDanger(xhr.status);
+            fnEditFormInit();
+        }
+    });
+}
+
 function fnDetail(name, res) {
     $.ajax({
         type: "GET",
         url: commonUtil.getContextPath() + "/biz/detail",
-        dataType: "html",
+        dataType: "html", // 데이터 받을때는 html으로 받아야 한다. json으로 하면 못받음.
         data: "name=" + name,
         success: function (data) {
             res(JSON.parse(data));
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            alert(xhr.status);
+            commonUtil.fnAlertDanger(xhr.status);
             fnEditFormInit();
+            res({code: -1})
         }
     });
 }
@@ -133,11 +210,11 @@ function fnDel(name) {
         dataType: "json",
         data: "name=" + name,
         success: function (data) {
-            alert("삭제가 성공 하였습니다.");
+            commonUtil.fnAlertSuccess("삭제가 정상 처리 되었습니다.");
             $("#btnSearch").click();
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            alert(xhr.status);
+            commonUtil.fnAlertDanger(xhr.status);
             fnEditFormInit();
         }
     });
@@ -159,12 +236,12 @@ function fnSearch(res) {
 
 function fnEditFormInit() {
     $("#formEdit").attr("style","display:none");
-    $(this).text("수정");
+    $("#btnEdit").text("수정");
+    formItemDisabled(true);
     $("#txtId").val("");
     $("#txtName").val("");
     $("#txtPhone").val("");
     $("#txtCorp").val("");
-    btnEditState = true;
 }
 
 function listDraw(data) {
@@ -178,5 +255,6 @@ function listDraw(data) {
     $("#searchList").html("");
     $("#searchList").html(liHtml);
 }
+
 
 
