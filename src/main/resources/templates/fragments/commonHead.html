@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.2/css/bootstrap.min.css}"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link th:href="${'https://pro.fontawesome.com/releases/v5.10.0/css/all.css'}" rel="stylesheet"/>
 
     <!-- 컨텐츠 페이지 CSS 삽입 -->
@@ -22,5 +23,10 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
             th:src="@{/webjars/bootstrap/4.5.2/js/bootstrap.min.js}">
     </script>
+
+    <script
+            src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+            integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+            crossorigin="anonymous"></script>
 </th:block>
 </html>

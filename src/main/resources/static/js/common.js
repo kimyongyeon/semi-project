@@ -3,11 +3,22 @@ class Common {
     constructor() {
         this.cacheList = {};
         this.TTL = 1000 * 60;
-        this.fnBatchSave();
+        // this.fnBatchSave();
 
         $("#btnTop").on("click", function(e) {
             $('body,html').animate({scrollTop: 0}, 800);
         });
+
+        // @ch4. 서비스 워커 등록
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker
+                .register(this.getContextPath() + '/service-worker.js')
+                // , { scope: '/web1/js/'})
+                .then((register) => {
+                    // 등록 완료
+                    // console.log('serviceWorker register complete ', register);
+                });
+        }
     }
 
     fnBatchSave() {
@@ -92,7 +103,7 @@ class Common {
     }
 
     getContextPath() {
-        var hostIndex = location.href.indexOf( location.host ) + location.host.length;
+        let hostIndex = location.href.indexOf( location.host ) + location.host.length;
         return location.href.substring( hostIndex, location.href.indexOf('/', hostIndex + 1) );
     };
 

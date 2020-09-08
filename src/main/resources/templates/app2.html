@@ -8,7 +8,27 @@
         #formData ul li {
             display: flex;
             flex-direction: column;
+            padding: 5px;
         }
+
+        #formData {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: flex-start;
+            width:100%;
+            text-align: left;
+        }
+
+        #formData .item {
+        }
+
+        #formData .item:nth-child(2) {
+            width: 100%;
+        }
+
+        #btnSave { width: 100%;}
+
     </style>
 </head>
 
@@ -17,9 +37,10 @@
 <th:block layout:fragment="content">
     <h1>방명록관리</h1>
     <hr>
-    <div style="display: flex; flex-direction: column;" >
-        <h1>목록</h1>
+    <div style="display: flex; flex-direction: column;">
+        <h5><i class="fal fa-clipboard-list"></i> 글목록</h5>
         <button id="btnDel" type="button" class="btn btn-danger">전체삭제</button>
+        <br>
         <div id="formList">
             <ul class="list-group">
             </ul>
@@ -27,15 +48,18 @@
 
     </div>
     <br>
-    <div id="formData" style="position: fixed; bottom: 0px; right: 0px; width:600px; background: beige; padding: 10px;">
-        <h1>입력</h1>
-        <ul>
-            <li>
-                이름: <input class="form-control" id="txtName" type="text">
-                내용: <textarea class="form-control" name="txtMemo" id="txtMemo" cols="30" rows="10"></textarea>
-                <button id="btnSave" type="button" class="btn btn-primary">확인</button>
-            </li>
-        </ul>
+    <div id="formData">
+        <div class="item">
+            <h5><i class="fas fa-pen"></i> 글쓰기</h5>
+        </div>
+        <div class="item">
+            <input class="form-control" id="txtName" type="text" placeholder="이름">
+            <div style="margin-top: 5px;"></div>
+            <textarea class="form-control" name="txtMemo" id="txtMemo" rows="10" placeholder="내용"></textarea>
+            <div style="margin-top: 5px;"></div>
+            <button id="btnSave" type="button" class="btn btn-primary">확인</button>
+            <div style="margin-top: 5px;"></div>
+        </div>
     </div>
 </th:block>
 

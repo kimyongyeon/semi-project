@@ -1,5 +1,6 @@
 window.onload = () => {
     fnSearch();
+    $("#formData").draggable();
 }
 
 $("#btnDel").on("click", function (e) {
@@ -76,8 +77,8 @@ function fnDraw(data) {
             </li>
         `)
     });
-    var scrollHeight = $(document).height();
-    $('body,html').animate({scrollTop: scrollHeight}, 800);
+    // let scrollHeight = $(document).height();
+    // $('body,html').animate({scrollTop: scrollHeight}, 800);
 
 }
 
