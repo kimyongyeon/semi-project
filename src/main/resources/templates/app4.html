@@ -4,17 +4,90 @@
       layout:decorate="~{layout/defaultLayout}">
 <head>
     <title>semi project index.html</title>
+    <style>
+        .btn__bottom__wrap {
+            background: beige;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .btn__bottom__wrap button {
+            z-index: 1;
+        }
+        .btn__bottom__inner__wrap {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between; /* 수평 중심축에서 */
+            align-items: baseline; /* 수직 */
+            align-content: space-between; /* 반대축에서 정렬 */
+            width: 22%;
+        }
+        .btn__bottom__wrap button:nth-child(1) {
+            align-self: center;
+        }
+        .btn__bottom__wrap button:nth-child(2) {
+            align-self: center;
+        }
+        .btn__bottom__wrap button:nth-child(3) {
+            align-self: flex-end;
+        }
+        input[type=date] {
+            display: inline-block;
+            width: 200px;
+        }
+        input[type=time] {
+            display: inline-block;
+            width: 200px;
+        }
+    </style>
 </head>
 
 <body>
 
 <th:block layout:fragment="content">
-    <h1>유저관리</h1>
+    <h1>예약관리 - 예약</h1>
+    <hr>
+    <form action="#">
+        <div class="form-group">
+            <label for="txtUserName">이름</label>
+            <input type="text" class="form-control" placeholder="이름" id="txtUserName">
+        </div>
+        <div class="form-group">
+            <label for="txtEmail">이메일</label>
+            <input type="email" class="form-control" placeholder="이메일" id="txtEmail">
+        </div>
+        <div class="form-group">
+            <label for="txtId">아이디</label>
+            <input type="text" class="form-control" placeholder="아이디" id="txtId">
+        </div>
 
+        <label for="txtBirth">생일</label>
+        <div class="form-group">
+            <input type="date" class="form-control" placeholder="생일" id="txtBirth">
+        </div>
+
+        <label for="txtStartDateTime">예약 시작일</label>
+        <div class="form-group">
+            <input type="date" class="form-control" placeholder="시작 일" id="txtStartDate"> -
+            <input type="time" class="form-control" placeholder="시작 시간" id="txtStartDateTime">
+        </div>
+
+        <label for="txtEndDateTime">예약 종료일</label>
+        <div class="form-group">
+            <input type="date" class="form-control" placeholder="종료 일" id="txtEndDate"> -
+            <input type="time" class="form-control" placeholder="종료 시간" id="txtEndDateTime">
+        </div>
+        <div class="btn__bottom__wrap">
+            <div class="btn__bottom__inner__wrap">
+            <button type="button" id="btnSave" class="btn btn-primary">등록</button>
+            <button type="button" id="btnTempSave" class="btn btn-primary">임시저장</button>
+            <button type="button" id="btnInit" class="btn btn-primary">초기화</button>
+            </div>
+        </div>
+    </form>
 </th:block>
 
 <th:block layout:fragment="pageCustomScript">
-    <script th:src="@{/js/index.js}"></script>
+    <script th:src="@{/js/app4.js}"></script>
 </th:block>
 <!--<th:block layout:fragment="pageCustomCss">-->
 <!--    <script th:src="@{/assets/vendor/jquery/jquery.css}"></script>-->

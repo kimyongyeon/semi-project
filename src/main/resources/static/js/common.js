@@ -1,6 +1,7 @@
 class Common {
 
     constructor() {
+        this.subMenuFlag = false;
         this.cacheList = {};
         this.TTL = 1000 * 60;
         // this.fnBatchSave();
@@ -19,6 +20,22 @@ class Common {
                     // console.log('serviceWorker register complete ', register);
                 });
         }
+
+        window.addEventListener('online', this.updateOnlineState);
+        window.addEventListener('offline', this.updateOnlineState);
+        this.updateOnlineState();
+
+    }
+
+    updateOnlineState() {
+        console.log('updateOnlineState', navigator.onLine);
+        // 네트워크 상태 체크
+        if (navigator.onLine) {
+            this.fnAlertSuccess("온라인 상태 입니다.");
+        } else {
+            this.fnAlertDanger("오프라인 상태 입니다.");
+        }
+
     }
 
     fnBatchSave() {
@@ -102,6 +119,10 @@ class Common {
         return JSON.parse(localStorage.getItem(key));
     }
 
+    localRemove(key) {
+        return localStorage.removeItem(key);
+    }
+
     getContextPath() {
         let hostIndex = location.href.indexOf( location.host ) + location.host.length;
         return location.href.substring( hostIndex, location.href.indexOf('/', hostIndex + 1) );
@@ -142,6 +163,27 @@ class Common {
 
     initCache() {
         this.cacheList = {};
+    }
+
+    subMenuShow(str) {
+        if (str === 'app3') {
+            if (!this.subMenuFlag) {
+                $("#subMenu__app3").attr('style', "display:visible;");
+                this.subMenuFlag = true;
+            } else {
+                $("#subMenu__app3").attr('style', "display:none;");
+                this.subMenuFlag = false;
+            }
+
+        }
+    }
+
+    encode (str) {
+        return btoa(str);
+    }
+
+    decode (str) {
+        return atob(str);
     }
 }
 

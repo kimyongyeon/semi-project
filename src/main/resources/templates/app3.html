@@ -4,16 +4,96 @@
       layout:decorate="~{layout/defaultLayout}">
 <head>
     <title>semi project index.html</title>
+    <style>
+        #req__wrap {
+            display: flex;
+            justify-content: flex-end;
+        }
+        #req__wrap > form {
+            z-index: 1;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: flex-end;
+            width: 350px;
+        }
+        #req__wrap > form > div:nth-child(1) {
+            display: inline-block;
+            text-align: right;
+        }
+        #req__wrap > form > div:nth-child(2) {
+            display: inline-block;
+        }
+        #req__wrap > form > div:nth-child(3) {
+            display: inline-block;
+        }
+        .__pagination__wrap {
+            display: flex;
+            justify-content: center;
+        }
+
+    </style>
 </head>
 
 <body>
 
 <th:block layout:fragment="content">
-    <h1>예약관리</h1>
+    <h1>예약관리 - 조회</h1>
+    <hr>
+    <div id="req__wrap">
+        <form action="">
+            <div class="_row">
+                <div class="dropdown" name="selSearch" id="selSearch">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" id="btnSelect">
+                        선택
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#" onclick="app3.fnSelect('name')">이름</a>
+                        <a class="dropdown-item" href="#">이메일</a>
+                        <a class="dropdown-item" href="#">아이디</a>
+                        <a class="dropdown-item" href="#">상태</a>
+                    </div>
+                </div>
+            </div>
+            <div class="_row">
+                <input id="txtKeyword" type="text" pattern="검색어" class="form-control form-control">
+            </div>
+            <div class="_row">
+                <button class="btn btn-primary" id="btnSearch">조회</button>
+            </div>
+        </form>
+    </div>
+
+    <br>
+
+    <div id="resp__wrap">
+        <table class="table">
+            <thead>
+            <tr>
+                <td>순번</td>
+                <td>이름</td>
+                <td>이메일</td>
+                <td>아이디</td>
+                <td>생년월일</td>
+                <td>상태</td>
+                <td>등록일자</td>
+            </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <div class="__pagination__wrap">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">이전</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">다음</a></li>
+        </ul>
+        </div>
+    </div>
+
 </th:block>
 
 <th:block layout:fragment="pageCustomScript">
-    <script th:src="@{/js/index.js}"></script>
+    <script th:src="@{/js/app3.js}"></script>
 </th:block>
 <!--<th:block layout:fragment="pageCustomCss">-->
 <!--    <script th:src="@{/assets/vendor/jquery/jquery.css}"></script>-->
