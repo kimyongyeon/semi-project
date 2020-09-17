@@ -34,9 +34,30 @@ class BookingRestController {
         var searchKeyword: String
     )
 
+    data class BookingDetail (
+        var id: Long
+    )
+
+    data class BookingSort (
+        var sort: String
+    )
+
     @GetMapping("/booking/find")
     fun findBooking(@ModelAttribute bookingSearch: BookingSearch): MutableList<BookingEntity> {
         return bookingRepo.findAll()
+    }
+    @GetMapping("/booking/findId")
+    fun findBookingId(@ModelAttribute bookingDetail: BookingDetail): BookingEntity {
+        return bookingRepo.findById(bookingDetail.id).get()
+    }
+    @GetMapping("/booking/findBySort")
+    fun findBySort(@ModelAttribute bookingSort: BookingSort): List<BookingEntity> {
+        print(bookingSort.toString())
+        if (bookingSort.sort == "userName") {
+            return bookingRepo.findAllByOrderByUserNameDesc()
+        } else {
+            return bookingRepo.findAllByOrderByUserNameAsc()
+        }
     }
 
     @PostMapping("/booking/post")

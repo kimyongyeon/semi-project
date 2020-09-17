@@ -1,5 +1,11 @@
 class App4 {
 
+    getUrlParams() {
+        var params = {};
+        window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(str, key, value) { params[key] = value; });
+        return params;
+    }
+
     constructor() {
 
         this.eventListener();
@@ -18,6 +24,26 @@ class App4 {
             $('#txtEndDate').val(temp['endDate']);
             $('#txtEndDateTime').val(temp['endDateTime']);
         }
+
+        let param = this.getUrlParams();
+        if (param.id) // 상세보기와 입력 화면 구분
+            this.fnFindById(param.id);
+    }
+
+    fnFindById(id) {
+        $.ajax({
+            type: "GET",
+            url: commonUtil.getContextPath() + "/booking/findId",
+            data: {id:id},
+            success: (data) => {
+                commonUtil.fnAlertSuccess("조회가 정상 처리 되었습니다.");
+                console.log(data);
+                this.fnDetail(data);
+            },
+            error: (xhr, ajaxOptions, thrownError) => {
+                commonUtil.fnAlertDanger(xhr.status);
+            }
+        });
     }
 
     eventListener() {
@@ -55,6 +81,7 @@ class App4 {
                 data: formData,
                 success: function (data) {
                     commonUtil.fnAlertSuccess("저장이 정상 처리 되었습니다.");
+                    commonUtil.localRemove('temp');
                     // 화면이동
                     location.replace('/web1/page/app3')
                 },
@@ -99,6 +126,17 @@ class App4 {
 
             commonUtil.localRemove('temp');
         });
+    }
+
+    fnDetail(data) {
+        $('#txtUserName').val(data.userName);
+        $('#txtEmail').val(data.userEmail);
+        $('#txtId').val(data.userId);
+        $('#txtBirth').val(data.userBirth);
+        $('#txtStartDateTime').val(data.startTime);
+        $('#txtStartDate').val(data.startDate);
+        $('#txtEndDateTime').val(data.endTime);
+        $('#txtEndDate').val(data.endDate);
     }
 }
 
